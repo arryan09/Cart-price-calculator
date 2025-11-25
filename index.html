@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart Price Calculator</title>
+</head>
+<body>
+
+<h2>Test Cart Price Calculator</h2>
+
+<button onclick="calculate()">Calculate Sample Cart</button>
+
+<pre id="result"></pre>
+
+<script>
+function calculate() {
+    fetch("/cart/total", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            items: [
+                { name: "Pen", price: 10, qty: 3 },
+                { name: "Notebook", price: 40, qty: 2 }
+            ]
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+    });
+}
+</script>
+
+</body>
+</html>
